@@ -17,7 +17,7 @@ const Button = ({ value, text, style, color, type, onClick }) => {
             setButtonType(` bg-${color} border-2 border-${color} `);
         }
         if (style === "outlined") {
-            setButtonType(` bg-none border-2 border-${color}`);
+            setButtonType(` bg-none border-2 border-${color} `);
         }
         if (style === "plain") {
             setButtonType("bg-none border-none");
