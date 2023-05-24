@@ -1,13 +1,51 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useAnimation, motion } from "framer-motion";
 
-const NavItems = ({ children}) => {
-    const [activeLink, setActiveLink] = useState("");
-    const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false)
+const NavItems = ({ children, mobile }) => {
+    const [activeLink, setActiveLink] = useState(false);
+    const [mobileSize, setMobileSize] = useState(false);
+    const {backgroundColor, menuColor} = mobile
+    const mobileMenuAnimation = useAnimation();
+
+    const mobileMenuIcon = (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 256 256">
+            <path
+                fill={menuColor ? menuColor : "white"}
+                strokeMiterlimit="10"
+                d="M3 5a1 1 0 100 2h18a1 1 0 100-2zm0 6a1 1 0 100 2h18a1 1 0 100-2zm0 6a1 1 0 100 2h18a1 1 0 100-2z"
+                fontFamily="none"
+                fontSize="none"
+                fontWeight="none"
+                textAnchor="none"
+                transform="scale(10.66667)"></path>
+        </svg>
+    );
 
     const location = useLocation();
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 768 && !mobileSize) {
+                setMobileSize(true);
+            } else if (window.innerWidth >= 768 && mobileSize) {
+                setMobileSize(false);
+            }
+        };
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [mobileSize]);
 
     useEffect(() => {
         setActiveLink("/" + location.pathname.split("/")[1]);
@@ -17,12 +55,13 @@ const NavItems = ({ children}) => {
     }, [location, activeLink]);
 
     return (
-        <section className="flex items-center relative">
-            <ul
+        <section className="flex items-center">
+            <motion.ul
+                animate={mobileSize ? mobileMenuAnimation : ""}
                 className={
-                    mobileMenuIsOpen
-                        ? "flex flex-col items-center justify-center gap-16 fixed w-screen h-screen bg-slate-700 left-0 top-0 z-0 text-xl font-bold"
-                        : "hidden md:flex flex-row items-center gap-12 lg:gap-16"
+                    mobileSize
+                        ? "fixed z-10 top-0 right-[-100%] w-full h-screen bg-primary flex flex-col items-center gap-12 justify-center"
+                        : "flex flex-row items-center gap-12 lg:gap-16"
                 }>
                 {React.Children.map(children, (child) => {
                     if (React.isValidElement(child)) {
@@ -34,26 +73,30 @@ const NavItems = ({ children}) => {
                 })}
                 <button
                     onClick={() => {
-                        setMobileMenuIsOpen(!mobileMenuIsOpen);
+                        mobileMenuAnimation.start(
+                            mobileMenuAnimation.start({
+                                x: 0,
+                            })
+                        );
                     }}
                     className="w-8 h-8 border md:hidden">
                     X
                 </button>
-            </ul>
-
+            </motion.ul>
             <button
                 onClick={() => {
-                    setMobileMenuIsOpen(!mobileMenuIsOpen);
+                    mobileMenuAnimation.start({
+                        x: "-100%",
+                    });
                 }}
-                className="w-8 h-8 border md:hidden">
-                X
-            </button>
+                className="md:hidden">{mobileMenuIcon}</button>
         </section>
     );
 };
 
 NavItems.propTypes = {
     children: PropTypes.any,
+    mobile: PropTypes.object,
 };
 
 export default NavItems;

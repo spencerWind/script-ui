@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const NavBar = ({ background, children, text }) => {
     const [backGroundColor, setBackgroundColor] = useState("");
-    const [textColor, setTextColor] = useState("")
+    const [textColor, setTextColor] = useState("");
 
     useEffect(() => {
         if (text === "white") {
