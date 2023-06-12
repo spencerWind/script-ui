@@ -6,14 +6,15 @@ import { useAnimation, motion } from "framer-motion";
 const NavItems = ({ children, mobile }) => {
     const [activeLink, setActiveLink] = useState(false);
     const [mobileSize, setMobileSize] = useState(false);
-    const {backgroundColor, menuColor} = mobile
+    const { backgroundColor, menuColor, textColor } = mobile;
     const mobileMenuAnimation = useAnimation();
+    const location = useLocation();
 
     const mobileMenuIcon = (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="32"
+            height="32"
             viewBox="0 0 256 256">
             <path
                 fill={menuColor ? menuColor : "white"}
@@ -27,30 +28,24 @@ const NavItems = ({ children, mobile }) => {
         </svg>
     );
 
-    const location = useLocation();
-
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 768 && !mobileSize) {
                 setMobileSize(true);
-            } else if (window.innerWidth >= 768 && mobileSize) {
+            } else if (window.innerWidth > 768 && mobileSize) {
                 setMobileSize(false);
             }
         };
-
         handleResize();
-
         window.addEventListener("resize", handleResize);
-
         return () => {
             window.removeEventListener("resize", handleResize);
+
         };
     }, [mobileSize]);
 
     useEffect(() => {
         setActiveLink("/" + location.pathname.split("/")[1]);
-        console.log(activeLink);
-
         return () => {};
     }, [location, activeLink]);
 
@@ -60,7 +55,7 @@ const NavItems = ({ children, mobile }) => {
                 animate={mobileSize ? mobileMenuAnimation : ""}
                 className={
                     mobileSize
-                        ? "fixed z-10 top-0 right-[-100%] w-full h-screen bg-primary flex flex-col items-center gap-12 justify-center"
+                        ? `fixed z-10 top-0 right-[-100%] w-full h-screen ${backgroundColor} flex flex-col items-center gap-12 justify-center ${textColor}`
                         : "flex flex-row items-center gap-12 lg:gap-16"
                 }>
                 {React.Children.map(children, (child) => {
@@ -89,7 +84,9 @@ const NavItems = ({ children, mobile }) => {
                         x: "-100%",
                     });
                 }}
-                className="md:hidden">{mobileMenuIcon}</button>
+                className="md:hidden">
+                {mobileMenuIcon}
+            </button>
         </section>
     );
 };

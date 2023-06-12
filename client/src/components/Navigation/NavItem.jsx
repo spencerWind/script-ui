@@ -10,14 +10,14 @@ const NavItem = ({ value, destination, isActive }) => {
                 whileTap={{ scale: 0.9 }}
                 className={
                     isActive
-                        ? "text-slate-100 relative font-light"
-                        : "text-slate-400 relative font-light"
+                        ? "md:text-slate-100 relative md:font-light max-md:text-xl font-semibold"
+                        : "md:text-slate-400 relative md:font-light max-md:text-xl font-semibold"
                 }>
                 {value}
                 <span
                     className={
                         isActive
-                            ? "absolute w-2 h-2 rounded-full bg-primary -bottom-2 left-1/2 -translate-x-1/2"
+                            ? "md:absolute w-2 h-2 rounded-full bg-primary -bottom-2 left-1/2 -translate-x-1/2"
                             : "hidden"
                     }></span>
             </motion.li>

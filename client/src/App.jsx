@@ -2,8 +2,10 @@ import "./App.css";
 import NavBar from "./components/Navigation/NavBar";
 import NavItem from "./components/Navigation/NavItem";
 import NavItems from "./components/Navigation/NavItems";
-import Button from "./components/Buttons/Button";
+import ButtonFilled from "./components/Buttons/ButtonFilled";
 import NavTitle from "./components/Navigation/NavTitle";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./views/HomePage";
 
 function App() {
     return (
@@ -14,8 +16,9 @@ function App() {
                 <NavItems
                 mobile={
                     {
-                        backgroundColor: "red",
-                        menuColor: ""
+                        backgroundColor: "bg-purple-500",
+                        menuColor: "white",
+                        textColor: "text-slate-900"
                     }
                 }
                 >
@@ -31,18 +34,20 @@ function App() {
                         destination={"/docs"}
                         value={"Docs"}
                     />
-                    <Button
-                        style={"filled"}
-                        color={"secondary"}
-                        text={"slate-950"}
-                        onClick={() => {
-                            console.log("button has been clicked");
-                        }}>
+                    <ButtonFilled
+                        fillColor={"primary"}
+                        textColor={"slate-100"}>
                         Get Started
-                    </Button>
+                    </ButtonFilled>
                 </NavItems>
             </NavBar>
+            <div className="my-8 md:my-12 lg:my-32">
+                <Routes>
+                    <Route element={<HomePage />} path="/" />
+                </Routes>
+            </div>
         </div>
+        
     );
 }
 
