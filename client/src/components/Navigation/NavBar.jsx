@@ -22,7 +22,7 @@ const NavBar = ({ background, children, text }) => {
 
     return (
         <nav
-            className={`p-4 md:px-8 flex items-center justify-between ${backGroundColor} ${textColor} h-16`}>
+            className={`flex items-center justify-between ${backGroundColor} ${textColor} h-16`}>
             {children}
         </nav>
     );

@@ -2,21 +2,21 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const NavItem = ({ value, destination, isactive }) => {
+const NavItem = ({ value, destination, isActive }) => {
     return (
         <Link to={destination}>
             <motion.li
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className={
-                    isactive
+                    isActive
                         ? "md:text-slate-100 relative md:font-light max-md:text-xl font-semibold"
                         : "md:text-slate-400 relative md:font-light max-md:text-xl font-semibold"
                 }>
                 {value}
                 <span
                     className={
-                        isactive
+                        isActive
                             ? "md:absolute w-2 h-2 rounded-full bg-primary -bottom-2 left-1/2 -translate-x-1/2"
                             : "hidden"
                     }></span>
@@ -28,7 +28,7 @@ const NavItem = ({ value, destination, isactive }) => {
 NavItem.propTypes = {
     destination: PropTypes.string,
     value: PropTypes.string,
-    isactive: PropTypes.bool,
+    isActive: PropTypes.bool,
 };
 
 export default NavItem;

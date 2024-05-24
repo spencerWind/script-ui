@@ -6,27 +6,9 @@ import { useAnimation, motion } from "framer-motion";
 const NavItems = ({ children, mobile }) => {
     const [activeLink, setActiveLink] = useState(false);
     const [mobileSize, setMobileSize] = useState(false);
-    const { backgroundColor, menuColor, textColor } = mobile;
+    const { backgroundColor, textColor } = mobile;
     const mobileMenuAnimation = useAnimation();
     const location = useLocation();
-
-    const mobileMenuIcon = (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 256 256">
-            <path
-                fill={menuColor ? menuColor : "white"}
-                strokeMiterlimit="10"
-                d="M3 5a1 1 0 100 2h18a1 1 0 100-2zm0 6a1 1 0 100 2h18a1 1 0 100-2zm0 6a1 1 0 100 2h18a1 1 0 100-2z"
-                fontFamily="none"
-                fontSize="none"
-                fontWeight="none"
-                textAnchor="none"
-                transform="scale(10.66667)"></path>
-        </svg>
-    );
 
     useEffect(() => {
         const handleResize = () => {
@@ -61,7 +43,7 @@ const NavItems = ({ children, mobile }) => {
                 {React.Children.map(children, (child) => {
                     if (React.isValidElement(child)) {
                         return React.cloneElement(child, {
-                            isActive: child.props.destination === activeLink,
+                            isactive: child.props.destination === activeLink,
                         });
                     }
                     return child;
@@ -85,7 +67,6 @@ const NavItems = ({ children, mobile }) => {
                     });
                 }}
                 className="md:hidden">
-                {mobileMenuIcon}
             </button>
         </section>
     );

@@ -6,26 +6,26 @@ import ButtonFilled from "./components/Buttons/ButtonFilled";
 import NavTitle from "./components/Navigation/NavTitle";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./views/HomePage";
+import AboutPage from "./views/AboutPage";
+import ExamplesPage from "./views/ExamplesPage";
+import Container from "./components/Containers/Container";
 
 function App() {
     return (
-        <div className="min-h-screen flex flex-col">
-            <div className="fixed top-0 left-0 -z-10 bg-slate-900 h-screen w-screen" />
+        <Container>
             <NavBar text={"white"}>
-                <NavTitle color="primary">Script-UI</NavTitle>
+                <NavTitle style={"text-red-500"}>Script-UI</NavTitle>
                 <NavItems
-                mobile={
-                    {
+                    mobile={{
                         backgroundColor: "bg-purple-500",
                         menuColor: "white",
-                        textColor: "text-slate-900"
-                    }
-                }
-                >
+                        textColor: "text-slate-900",
+                    }}>
                     <NavItem
                         destination={"/about"}
                         value={"About"}
                     />
+
                     <NavItem
                         destination={"/examples"}
                         value={"Examples"}
@@ -41,13 +41,24 @@ function App() {
                     </ButtonFilled>
                 </NavItems>
             </NavBar>
-            <div className="my-8 md:my-12 lg:my-32">
+            <div className="">
                 <Routes>
-                    <Route element={<HomePage />} path="/" />
+                    <Route
+                        element={<HomePage />}
+                        path="/"
+                    />
+                    <Route
+                        element={<AboutPage />}
+                        path="/about"
+                    />
+                    <Route
+                        element={<ExamplesPage />}
+                        path="/examples"
+                    />
                 </Routes>
             </div>
-        </div>
-        
+            <div className="fixed left-0 top-0 -z-10 h-screen w-screen bg-slate-900" />
+        </Container>
     );
 }
 

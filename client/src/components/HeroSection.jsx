@@ -5,8 +5,8 @@ const HeroSection = () => {
     return (
         <section
             id="heroSection"
-            className="text-slate-100 max-md:p-2 flex flex-col items-center justify-between py-32">
-            <div className=" flex flex-col items-center mb-64">
+            className="text-slate-100 flex flex-col items-center">
+            <div className=" flex flex-col items-center justify-center">
                 <h1 className="text-2xl md:text-3xl font-bold leading-tight tracking-wide mb-4">
                     React and Tailwind just got better...
                 </h1>
@@ -34,7 +34,7 @@ const HeroSection = () => {
                     </ButtonOutlined>
                 </div>
             </div>
-            <div className="w-full px-4 md:px-8 flex flex-col lg:flex-row gap-8">
+            <div className="w-full flex flex-col lg:flex-row gap-8">
                 <div className="max-w-md text-sm font-thin">
                     <h3 className="font-semibold lg:text-xl mb-4">
                         Plug and play components at your fingertips
